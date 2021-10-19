@@ -18,7 +18,8 @@ class UsersController < ApplicationController
   # POST /users
   def create
     user_name = user_params["name"]
-    user_password = BCrypt::Password.create(user_params["encrypted_password"])
+    puts user_params["encrypted_password"]
+    user_password = BCrypt::Password.create(user_params["password"])
     user = {
       "name" => user_name,
       "password" => user_password
@@ -29,6 +30,19 @@ class UsersController < ApplicationController
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def login
+    user_info = JSON.parse(request.body.read)
+    user = User.find_user_by_name(user_info["name"])
+    password = BCrypt::Password.new(user[0].password)
+    if password == user_info["password"]
+      payload = { user_id: user[0].id }
+      token = JWT.encode(payload, nil, 'HS256')
+      render json: { "token" => token }
+    else
+      render json: { "error" => "undefined users" }
     end
   end
 
