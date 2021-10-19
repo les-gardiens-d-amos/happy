@@ -1,6 +1,7 @@
 require 'bcrypt'
 
 class UsersController < ApplicationController
+  skip_before_action :authorized, only: [:create, :login] 
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
