@@ -18,9 +18,9 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    user_name = user_params["name"]
-    puts user_params["encrypted_password"]
-    user_password = BCrypt::Password.create(user_params["password"])
+    user_info = JSON.parse(request.body.read)
+    user_name = user_info["name"]
+    user_password = BCrypt::Password.create(user_info["password"])
     user = {
       "name" => user_name,
       "password" => user_password
