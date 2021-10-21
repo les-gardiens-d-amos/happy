@@ -19,12 +19,10 @@ class UsersController < ApplicationController
   # POST /users
   def create
     user_info = JSON.parse(request.body.read)
-    user_name = user_info["name"]
-    user_password = BCrypt::Password.create(user_info["password"])
     user = {
-      "id" => SecureRandom.uuid,
-      "name" => user_name,
-      "password" => user_password
+      :id => SecureRandom.uuid,
+      :name => user_info["name"],
+      :password => BCrypt::Password.create(user_info["password"])
     }
     @user = User.new(user)
 
@@ -37,10 +35,10 @@ class UsersController < ApplicationController
 
   def login
     user_info = JSON.parse(request.body.read)
-    user = User.find_user_by_name(user_info["name"])
-    password = BCrypt::Password.new(user[0].password)
+    user = User.find_by_name(user_info["name"])
+    password = BCrypt::Password.new(user.password)
     if password == user_info["password"]
-      payload = { user_id: user[0].id }
+      payload = { user_id: user.id }
       token = JWT.encode(payload, nil, 'HS256')
       render json: { "token" => token }
     else
