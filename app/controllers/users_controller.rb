@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     user_info = JSON.parse(request.body.read)
     user = {
       :id => SecureRandom.uuid,
+      :email => user_info["email"],
       :name => user_info["name"],
       :password => BCrypt::Password.create(user_info["password"])
     }
@@ -35,7 +36,7 @@ class UsersController < ApplicationController
 
   def login
     user_info = JSON.parse(request.body.read)
-    user = User.find_by_name(user_info["name"])
+    user = User.find_by_email(user_info["email"])
     password = BCrypt::Password.new(user.password)
     if password == user_info["password"]
       payload = { user_id: user.id }
