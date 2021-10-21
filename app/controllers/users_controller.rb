@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     user_name = user_info["name"]
     user_password = BCrypt::Password.create(user_info["password"])
     user = {
+      "id" => SecureRandom.uuid,
       "name" => user_name,
       "password" => user_password
     }
