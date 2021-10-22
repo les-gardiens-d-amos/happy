@@ -16,7 +16,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "save user" do
-    
     user = User.new(@data)
     assert user.save, "Saved the user"
   end
@@ -31,5 +30,12 @@ class UserTest < ActiveSupport::TestCase
     User.new(@data).save
     user = User.find_by_email("plop@plop.com")
     assert_not_equal(nil, user, "Return user with a email plop@plop.com")
+  end
+
+  test "Delete all user" do
+    User.new(@data).save
+    User.delete_all
+    all_user = User.all
+    assert_equal([], all_user, "Return empty array")
   end
 end
