@@ -50,4 +50,4 @@ jobs:
         
       # run test
       - name: Run a test
-        run: rake test
+        run: bundle exec rake test
