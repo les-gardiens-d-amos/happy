@@ -63,6 +63,6 @@ rails s
 
 To contribute to the happy API project please follow the instructions in CONTRIBUTING.md
 
-## Contributor
+<h2>Contributor</h2>
 
 - the amos guardian team 😉
