@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     if password == user_info["password"]
       payload = { user_id: user.id }
       token = JWT.encode(payload, nil, 'HS256')
-      render json: { "token" => token }
+      render json: { "token" => token, "user_info" => user }
     else
       render json: { "error" => "undefined users" }
     end
