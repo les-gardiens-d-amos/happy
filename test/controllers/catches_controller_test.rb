@@ -10,13 +10,13 @@ class CatchesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create catch" do
-    assert_difference('Catch.count') do
-      post catches_url, params: { catch: { accuracy: @catch.accuracy, altitude: @catch.altitude, lat: @catch.lat, long: @catch.long } }, as: :json
-    end
+  # test "should create catch" do
+  #   assert_difference('Catch.count') do
+  #     post catches_url, params: { catch: { accuracy: @catch.accuracy, altitude: @catch.altitude, lat: @catch.lat, long: @catch.long } }, as: :json
+  #   end
 
-    assert_response 201
-  end
+  #   assert_response 201
+  # end
 
   test "should show catch" do
     get catch_url(@catch), as: :json
