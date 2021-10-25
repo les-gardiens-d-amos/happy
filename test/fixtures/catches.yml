@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  long: 1
+  lat: 1
+  altitude: 1
+  accuracy: 1
+
+two:
+  long: 1
+  lat: 1
+  altitude: 1
+  accuracy: 1
