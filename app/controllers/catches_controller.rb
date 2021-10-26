@@ -9,6 +9,12 @@ class CatchesController < ApplicationController
     render json: @catches
   end
 
+  def amos_catches
+    @catches = Catch.find_by_amos_id(catch_params[:amos_id])
+
+    render json: @catches
+  end
+
   # GET /catches/1
   def show
     render json: @catch
