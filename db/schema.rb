@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_25_121049) do
+ActiveRecord::Schema.define(version: 2021_10_26_122936) do
 
-  create_table "amos", force: :cascade do |t|
+  create_table "amos", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "user_id"
     t.integer "animal_id"
     t.string "species"
@@ -24,13 +24,14 @@ ActiveRecord::Schema.define(version: 2021_10_25_121049) do
     t.string "image_path"
   end
 
-  create_table "catches", force: :cascade do |t|
+  create_table "catches", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.integer "long"
     t.integer "lat"
     t.integer "altitude"
     t.integer "accuracy"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "amos_id"
   end
 
   create_table "users", id: { type: :string, limit: 36 }, force: :cascade do |t|

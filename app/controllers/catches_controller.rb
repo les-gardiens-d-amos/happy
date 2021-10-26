@@ -9,6 +9,12 @@ class CatchesController < ApplicationController
     render json: @catches
   end
 
+  def amos_catches
+    @catches = Catch.find_by_amos_id(catch_params[:amos_id])
+
+    render json: @catches
+  end
+
   # GET /catches/1
   def show
     render json: @catch
@@ -17,6 +23,7 @@ class CatchesController < ApplicationController
   # POST /catches
   def create
     @catch = Catch.new(catch_params)
+    @catch.id = SecureRandom.uuid
 
     if @catch.save
       render json: @catch, status: :created, location: @catch
@@ -47,6 +54,6 @@ class CatchesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def catch_params
-      params.permit(:long, :lat, :altitude, :accuracy)
+      params.permit(:long, :lat, :altitude, :accuracy, :amos_id)
     end
 end

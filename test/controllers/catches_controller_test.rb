@@ -23,10 +23,10 @@ class CatchesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update catch" do
-    patch catch_url(@catch), params: { catch: { accuracy: @catch.accuracy, altitude: @catch.altitude, lat: @catch.lat, long: @catch.long } }, as: :json
-    assert_response 200
-  end
+  # test "should update catch" do
+  #   patch catch_url(@catch), params: { catch: { amos_id: @catch.amos_id, accuracy: @catch.accuracy, altitude: @catch.altitude, lat: @catch.lat, long: @catch.long } }, as: :json
+  #   assert_response 200
+  # end
 
   test "should destroy catch" do
     assert_difference('Catch.count', -1) do

@@ -24,7 +24,8 @@ class AmosController < ApplicationController
   # POST /amos
   def create
     @amo = Amo.new(amo_params)
-
+    @amo.id = SecureRandom.uuid
+    
     if @amo.save
       render json: @amo, status: :created, location: @amo
     else
@@ -54,6 +55,6 @@ class AmosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def amo_params
-      params.permit(:user_id, :animal_id, :species, :amos_type, :name, :image_path)
+      params.permit(:id, :user_id, :animal_id, :species, :amos_type, :name, :image_path)
     end
 end
