@@ -16,7 +16,7 @@ class AmosController < ApplicationController
 
   # GET /amos/user_id
   def user_amos
-    @amo = Amo.find_by_user_id(amo_params[:user_id])
+    @amo = Amo.where(user_id: amo_params[:user_id])
 
     render json: @amo
   end
