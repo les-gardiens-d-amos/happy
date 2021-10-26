@@ -14,6 +14,13 @@ class AmosController < ApplicationController
     render json: @amo
   end
 
+  # GET /amos/user_id
+  def user_amos
+    @amo = Amo.find_by_user_id(amo_params[:user_id])
+
+    render json: @amo
+  end
+
   # POST /amos
   def create
     @amo = Amo.new(amo_params)
