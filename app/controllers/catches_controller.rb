@@ -22,7 +22,8 @@ class CatchesController < ApplicationController
 
   # POST /catches
   def create
-    @catch = Catch.new(catch_params)
+    catch_info = JSON.parse(request.body.read)
+    @catch = Catch.new(catch_info)
     @catch.id = SecureRandom.uuid
 
     if @catch.save

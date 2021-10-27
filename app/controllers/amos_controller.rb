@@ -23,7 +23,8 @@ class AmosController < ApplicationController
 
   # POST /amos
   def create
-    @amo = Amo.new(amo_params)
+    amo_info = JSON.parse(request.body.read)
+    @amo = Amo.new(amo_info)
     @amo.id = SecureRandom.uuid
     
     if @amo.save
