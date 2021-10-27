@@ -1,5 +1,4 @@
 class CatchesController < ApplicationController
-  skip_before_action :authorized
   before_action :set_catch, only: [:show, :update, :destroy]
 
   # GET /catches
