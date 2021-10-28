@@ -4,8 +4,15 @@ class CatchesController < ApplicationController
   # GET /catches
   def index
     @catches = Catch.all
+    catches_and_amos = []
+    @catches.each do |el|
+      catches_and_amos << { 
+        catches: el,
+        species: Amo.find(el.amos_id).species
+      }
+    end
 
-    render json: @catches
+    render json: catches_and_amos
   end
 
   def amos_catches
