@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :amos
   get "/amos/find/user" => "amos#user_amos"
+  put "/amos/update/name" => "amos#update_name"
 
   resources :users
 

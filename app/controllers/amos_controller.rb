@@ -1,6 +1,7 @@
 require "pry"
 
 class AmosController < ApplicationController
+  skip_before_action :authorized
   before_action :set_amo, only: [:show, :update, :destroy]
 
   # GET /amos
@@ -43,6 +44,12 @@ class AmosController < ApplicationController
     else
       render json: @amo.errors, status: :unprocessable_entity
     end
+  end
+
+  def update_name
+    name = JSON.parse(request.body.read)["name"]
+    @amo = Amo.change_amos_name(amo_params[:id], name)
+    render json: @amo
   end
 
   # DELETE /amos/1
