@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :users
 
   post "/login" => "users#login"
+
+  get "/check/service" => "check_service#check_service"
 end
