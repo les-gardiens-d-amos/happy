@@ -45,6 +45,12 @@ class AmosController < ApplicationController
     end
   end
 
+  def update_name
+    name = JSON.parse(request.body.read)["name"]
+    @amo = Amo.change_amos_name(amo_params[:id], name)
+    render json: @amo
+  end
+
   # DELETE /amos/1
   def destroy
     @amo.destroy

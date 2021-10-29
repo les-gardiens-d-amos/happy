@@ -5,4 +5,11 @@ class Amo < ApplicationRecord
     validates :amos_type, presence: true
     validates :name, presence: true
     validates :image_path, presence: true
+
+    def self.change_amos_name(id, name)
+        amo = Amo.find(id)
+        amo.name = name
+        amo.save
+        return amo
+    end
 end
