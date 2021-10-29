@@ -4,15 +4,14 @@ class CheckServiceController < ApplicationController
   skip_before_action :authorized
 
   def initialize
-    @application_connection = true
     @database_connection = false
   end
 
   def check_service
     database_runtime = Benchmark.measure { find_check_service }
-    delete_check_service
+    CheckService.delete_all
     render json: {
-      app_connection: @application_connection,
+      app_connection: true,
       db_connection: @db_connection,
       db_runtime: database_runtime.real
     }
@@ -31,9 +30,5 @@ class CheckServiceController < ApplicationController
 
   def create_check_service
     CheckService.new.save
-  end
-
-  def delete_check_service
-    CheckService.delete_all
   end
 end
