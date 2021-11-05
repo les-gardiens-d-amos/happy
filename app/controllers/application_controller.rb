@@ -42,6 +42,7 @@ class ApplicationController < ActionController::API
     rescue StandardError => err
       error_info = { name: request, description: params, error: err, stack_trace: err.backtrace.join("/n") }
       FailedJob.new(error_info).save
+      DiscordErrorService.new(request, params, err, err.backtrace.join("/n")).send_error
       raise err
     end
   end
