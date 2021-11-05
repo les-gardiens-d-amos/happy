@@ -12,4 +12,8 @@ class Amo < ApplicationRecord
         amo.save
         return amo
     end
+
+    def self.find_animal_id_by_user(id)
+        Amo.where(:user_id => id).pluck(:animal_id).uniq
+    end
 end

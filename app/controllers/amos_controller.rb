@@ -1,6 +1,7 @@
 require "pry"
 
 class AmosController < ApplicationController
+  skip_before_action :authorized
   before_action :set_amo, only: [:show, :update, :destroy]
 
   # GET /amos
@@ -20,6 +21,12 @@ class AmosController < ApplicationController
     @amo = Amo.where(user_id: amo_params[:user_id])
 
     render json: @amo
+  end
+
+  def animal_id
+    @animal_id = Amo.find_animal_id_by_user(amo_params[:user_id])
+
+    render json: { :animal_id => @animal_id }
   end
 
   # POST /amos
