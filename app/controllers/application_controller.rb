@@ -40,9 +40,11 @@ class ApplicationController < ActionController::API
     begin
       yield
     rescue StandardError => err
-      error_info = { name: request, description: params, error: err, stack_trace: err.backtrace.join("/n") }
-      FailedJob.new(error_info).save
-      DiscordErrorService.new(request, params, err, err.backtrace.join("/n")).send_error
+      if ENV["RAILS_ENV"] == "production"
+        error_info = { name: request, description: params, error: err, stack_trace: err.backtrace.join("/n") }
+        FailedJob.new(error_info).save
+        DiscordErrorService.new(request, params, err, err.backtrace.join("/n")).send_error_back  
+      end
       raise err
     end
   end

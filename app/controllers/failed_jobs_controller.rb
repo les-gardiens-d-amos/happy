@@ -17,7 +17,12 @@ class FailedJobsController < ApplicationController
   # POST /failed_jobs
   def create
     @failed_job = FailedJob.new(failed_job_params)
-
+    DiscordErrorService.new(
+      failed_job_params[:name], 
+      failed_job_params[:description], 
+      failed_job_params[:error], 
+      failed_job_params[:stack_trace]
+    ).send_error_front
     if @failed_job.save
       render json: @failed_job, status: :created, location: @failed_job
     else
@@ -47,6 +52,6 @@ class FailedJobsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def failed_job_params
-      params.require(:failed_job).permit(:name, :description, :error, :stack_trace)
+      params.permit(:name, :description, :error, :stack_trace)
     end
 end
