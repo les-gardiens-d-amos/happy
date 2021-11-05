@@ -1,7 +1,6 @@
 require "pry"
 
 class AmosController < ApplicationController
-  skip_before_action :authorized
   before_action :set_amo, only: [:show, :update, :destroy]
 
   # GET /amos
