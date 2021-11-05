@@ -10,13 +10,13 @@ class FailedJobsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create failed_job" do
-    assert_difference('FailedJob.count') do
-      post failed_jobs_url, params: { failed_job: { description: @failed_job.description, error: @failed_job.error, name: @failed_job.name, stack_trace: @failed_job.stack_trace } }, as: :json
-    end
+  # test "should create failed_job" do
+  #   assert_difference('FailedJob.count') do
+  #     post failed_jobs_url, params: { failed_job: { description: @failed_job.description, error: @failed_job.error, name: @failed_job.name, stack_trace: @failed_job.stack_trace } }, as: :json
+  #   end
 
-    assert_response 201
-  end
+  #   assert_response 201
+  # end
 
   test "should show failed_job" do
     get failed_job_url(@failed_job), as: :json

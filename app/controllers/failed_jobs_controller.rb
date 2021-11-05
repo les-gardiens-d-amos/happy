@@ -17,12 +17,14 @@ class FailedJobsController < ApplicationController
   # POST /failed_jobs
   def create
     @failed_job = FailedJob.new(failed_job_params)
+
     DiscordErrorService.new(
       failed_job_params[:name], 
       failed_job_params[:description], 
       failed_job_params[:error], 
       failed_job_params[:stack_trace]
-    ).send_error_front
+    ).send_error_front  
+    
     if @failed_job.save
       render json: @failed_job, status: :created, location: @failed_job
     else
