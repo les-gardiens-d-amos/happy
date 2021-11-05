@@ -59,6 +59,7 @@ class AmosController < ApplicationController
 
   # DELETE /amos/1
   def destroy
+    Catch.remove_catch_with_amo(params[:id])
     @amo.destroy
   end
 
