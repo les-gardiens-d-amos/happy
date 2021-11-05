@@ -22,6 +22,12 @@ class AmosController < ApplicationController
     render json: @amo
   end
 
+  def animal_id
+    @animal_id = Amo.find_animal_id_by_user(amo_params[:user_id])
+
+    render json: { :animal_id => @animal_id }
+  end
+
   # POST /amos
   def create
     amo_info = JSON.parse(request.body.read)
@@ -45,8 +51,15 @@ class AmosController < ApplicationController
     end
   end
 
+  def update_name
+    name = JSON.parse(request.body.read)["name"]
+    @amo = Amo.change_amos_name(amo_params[:id], name)
+    render json: @amo
+  end
+
   # DELETE /amos/1
   def destroy
+    Catch.remove_catch_with_amo(params[:id])
     @amo.destroy
   end
 

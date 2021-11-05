@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_092856) do
+ActiveRecord::Schema.define(version: 2021_11_05_104801) do
 
   create_table "amos", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "user_id"
@@ -25,16 +25,25 @@ ActiveRecord::Schema.define(version: 2021_10_29_092856) do
   end
 
   create_table "catches", id: { type: :string, limit: 36 }, force: :cascade do |t|
-    t.integer "long"
-    t.integer "lat"
-    t.integer "altitude"
-    t.integer "accuracy"
+    t.decimal "long", precision: 10, scale: 10
+    t.decimal "lat", precision: 10, scale: 10
+    t.decimal "altitude", precision: 10, scale: 10
+    t.decimal "accuracy", precision: 10, scale: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "amos_id"
   end
 
   create_table "check_services", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "failed_jobs", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "error"
+    t.string "stack_trace"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
