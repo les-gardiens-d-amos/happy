@@ -46,11 +46,11 @@ class AmosControllerTest < ActionDispatch::IntegrationTest
   #   assert_response 200
   # end
 
-  test "should destroy amo" do
-    assert_difference('Amo.count', -1) do
-      delete amo_url(@amo), as: :json
-    end
+  # test "should destroy amo" do
+  #   assert_difference('Amo.count', -1) do
+  #     delete amo_url(@amo), as: :json
+  #   end
 
-    assert_response 204
-  end
+  #   assert_response 204
+  # end
 end
