@@ -16,6 +16,14 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  def current_user
+    token = auth_header.split(" ")[1]
+    user_id = JWT.decode(token, nil, false)[0]["user_id"]
+    user = User.find(user_id)
+
+    render json: { "token" => token, "user_info" => user }
+  end
+
   # POST /users
   def create
     user_info = JSON.parse(request.body.read)
