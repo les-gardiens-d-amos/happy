@@ -12,15 +12,15 @@ class AmosControllerTest < ActionDispatch::IntegrationTest
 
   # test "should create amo" do
   #   assert_difference('Amo.count') do
-  #     post amos_url, params: { 
-  #       amo: { 
-  #         user_id: @amo.user_id, 
-  #         animal_id: @amo.animal_id, 
-  #         species: @amo.species, 
-  #         amos_type: @amo.amos_type, 
-  #         name: @amo.name, 
-  #         image_path: @amo.image_path 
-  #       } 
+  #     post amos_url, params: {
+  #       amo: {
+  #         user_id: @amo.user_id,
+  #         animal_id: @amo.animal_id,
+  #         species: @amo.species,
+  #         amos_type: @amo.amos_type,
+  #         name: @amo.name,
+  #         image_path: @amo.image_path
+  #       }
   #     }, as: :json
   #   end
 
@@ -33,15 +33,15 @@ class AmosControllerTest < ActionDispatch::IntegrationTest
   end
 
   # test "should update amo" do
-  #   patch amo_url(@amo), params: { 
-  #     amo: { 
-  #       user_id: @amo.user_id, 
-  #       animal_id: @amo.animal_id, 
-  #       species: @amo.species, 
-  #       amos_type: @amo.amos_type, 
-  #       name: @amo.name, 
-  #       image_path: @amo.image_path 
-  #     } 
+  #   patch amo_url(@amo), params: {
+  #     amo: {
+  #       user_id: @amo.user_id,
+  #       animal_id: @amo.animal_id,
+  #       species: @amo.species,
+  #       amos_type: @amo.amos_type,
+  #       name: @amo.name,
+  #       image_path: @amo.image_path
+  #     }
   #   }, as: :json
   #   assert_response 200
   # end

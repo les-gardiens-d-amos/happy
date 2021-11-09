@@ -12,7 +12,14 @@ class FailedJobsControllerTest < ActionDispatch::IntegrationTest
 
   # test "should create failed_job" do
   #   assert_difference('FailedJob.count') do
-  #     post failed_jobs_url, params: { failed_job: { description: @failed_job.description, error: @failed_job.error, name: @failed_job.name, stack_trace: @failed_job.stack_trace } }, as: :json
+  #     post failed_jobs_url, params: {
+  #       failed_job: {
+  #         description: @failed_job.description,
+  #         error: @failed_job.error,
+  #         name: @failed_job.name,
+  #         stack_trace: @failed_job.stack_trace
+  #       }
+  #     }, as: :json
   #   end
 
   #   assert_response 201
@@ -24,12 +31,19 @@ class FailedJobsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update failed_job" do
-    patch failed_job_url(@failed_job), params: { failed_job: { description: @failed_job.description, error: @failed_job.error, name: @failed_job.name, stack_trace: @failed_job.stack_trace } }, as: :json
+    patch failed_job_url(@failed_job), params: {
+      failed_job: {
+        description: @failed_job.description,
+        error: @failed_job.error,
+        name: @failed_job.name,
+        stack_trace: @failed_job.stack_trace
+      }
+    }, as: :json
     assert_response 200
   end
 
   test "should destroy failed_job" do
-    assert_difference('FailedJob.count', -1) do
+    assert_difference("FailedJob.count", -1) do
       delete failed_job_url(@failed_job), as: :json
     end
 

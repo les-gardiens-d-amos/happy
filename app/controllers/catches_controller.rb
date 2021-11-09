@@ -1,12 +1,12 @@
 class CatchesController < ApplicationController
-  before_action :set_catch, only: [:show, :update, :destroy]
+  before_action :set_catch, only: %i[show update destroy]
 
   # GET /catches
   def index
     @catches = Catch.all
     catches_and_amos = []
     @catches.each do |el|
-      catches_and_amos << { 
+      catches_and_amos << {
         catches: el,
         species: Amo.find(el.amos_id).species
       }
@@ -16,7 +16,7 @@ class CatchesController < ApplicationController
   end
 
   def amos_catches
-    @catches = Catch.find_by_amos_id(catch_params[:amos_id])
+    @catches = Catch.find_by(amos_id: catch_params[:amos_id])
 
     render json: @catches
   end
@@ -54,13 +54,14 @@ class CatchesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_catch
-      @catch = Catch.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def catch_params
-      params.permit(:long, :lat, :altitude, :accuracy, :amos_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_catch
+    @catch = Catch.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def catch_params
+    params.permit(:long, :lat, :altitude, :accuracy, :amos_id)
+  end
 end

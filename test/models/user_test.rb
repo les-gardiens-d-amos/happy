@@ -3,10 +3,10 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   setup do
     @data = {
-      :id => SecureRandom.uuid,
-      :email => "plop@plop.com",
-      :name => "plop",
-      :password => "plop-man"
+      id: SecureRandom.uuid,
+      email: "plop@plop.com",
+      name: "plop",
+      password: "plop-man"
     }
   end
 
@@ -22,13 +22,13 @@ class UserTest < ActiveSupport::TestCase
 
   test "Find user by name" do
     User.new(@data).save
-    user = User.find_by_name("plop")
+    user = User.find_by(name: "plop")
     assert_not_equal(nil, user, "Return user with a name plop")
   end
 
   test "Find user by email" do
     User.new(@data).save
-    user = User.find_by_email("plop@plop.com")
+    user = User.find_by(email: "plop@plop.com")
     assert_not_equal(nil, user, "Return user with a email plop@plop.com")
   end
 

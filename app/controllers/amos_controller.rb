@@ -1,7 +1,7 @@
 require "pry"
 
 class AmosController < ApplicationController
-  before_action :set_amo, only: [:show, :update, :destroy]
+  before_action :set_amo, only: %i[show update destroy]
 
   # GET /amos
   def index
@@ -25,7 +25,7 @@ class AmosController < ApplicationController
   def animal_id
     @animal_id = Amo.find_animal_id_by_user(amo_params[:user_id])
 
-    render json: { :animal_id => @animal_id }
+    render json: { animal_id: @animal_id }
   end
 
   # POST /amos
@@ -34,7 +34,7 @@ class AmosController < ApplicationController
     # binding.pry
     @amo = Amo.new(amo_info)
     @amo.id = SecureRandom.uuid
-    
+
     if @amo.save
       render json: @amo, status: :created, location: @amo
     else
@@ -64,13 +64,14 @@ class AmosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_amo
-      @amo = Amo.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def amo_params
-      params.permit(:id, :user_id, :animal_id, :species, :amos_type, :name, :image_path)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_amo
+    @amo = Amo.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def amo_params
+    params.permit(:id, :user_id, :animal_id, :species, :amos_type, :name, :image_path)
+  end
 end

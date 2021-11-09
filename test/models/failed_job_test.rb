@@ -3,10 +3,10 @@ require "test_helper"
 class FailedJobTest < ActiveSupport::TestCase
   setup do
     @data = {
-      :name => "error for test",
-      :description => "description for this error",
-      :error => "divided by zero for example",
-      :stack_trace => "./error/stack/trace/example.rb"
+      name: "error for test",
+      description: "description for this error",
+      error: "divided by zero for example",
+      stack_trace: "./error/stack/trace/example.rb"
     }
   end
 
@@ -22,7 +22,7 @@ class FailedJobTest < ActiveSupport::TestCase
 
   test "find error by name" do
     FailedJob.new(@data).save
-    job = FailedJob.find_by_name("error for test")
+    job = FailedJob.find_by(name: "error for test")
     assert_not_equal(nil, job, "Return error with a name")
   end
 
