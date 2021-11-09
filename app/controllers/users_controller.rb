@@ -1,8 +1,8 @@
-require 'bcrypt'
+require "bcrypt"
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create, :login] 
-  before_action :set_user, only: [:show, :update, :destroy]
+  skip_before_action :authorized, only: %i[create login]
+  before_action :set_user, only: %i[show update destroy]
 
   # GET /users
   def index
@@ -20,10 +20,10 @@ class UsersController < ApplicationController
   def create
     user_info = JSON.parse(request.body.read)
     user = {
-      :id => SecureRandom.uuid,
-      :email => user_info["email"],
-      :name => user_info["name"],
-      :password => BCrypt::Password.create(user_info["password"])
+      id: SecureRandom.uuid,
+      email: user_info["email"],
+      name: user_info["name"],
+      password: BCrypt::Password.create(user_info["password"])
     }
     @user = User.new(user)
 
@@ -36,11 +36,11 @@ class UsersController < ApplicationController
 
   def login
     user_info = JSON.parse(request.body.read)
-    user = User.find_by_email(user_info["email"])
+    user = User.find_by(email: user_info["email"])
     password = BCrypt::Password.new(user.password)
     if password == user_info["password"]
       payload = { user_id: user.id }
-      token = JWT.encode(payload, nil, 'HS256')
+      token = JWT.encode(payload, nil, "HS256")
       render json: { "token" => token, "user_info" => user }
     else
       render json: { "error" => "undefined users" }
@@ -62,14 +62,15 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      # params.require(:user).permit(:name, :password)
-      params.permit(:name, :password)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    # params.require(:user).permit(:name, :password)
+    params.permit(:name, :password)
+  end
 end

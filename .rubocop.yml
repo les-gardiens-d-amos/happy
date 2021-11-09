@@ -9,11 +9,14 @@ Documentation:
 Metrics/LineLength:
   Max: 150
 
-GlobalVars:
-  Enabled: false
-
 Style/FrozenStringLiteralComment:
   Enabled: false
 
 Metrics/MethodLength:
   Max: 15
+
+Metrics/AbcSize:
+  Enabled: false
+
+Rails/FilePath:
+  Enabled: false

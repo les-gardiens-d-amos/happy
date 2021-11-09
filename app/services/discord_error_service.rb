@@ -1,4 +1,4 @@
-require 'discordrb/webhooks'
+require "discordrb/webhooks"
 
 class DiscordErrorService
   def initialize(request, params, error, stack_trace)
@@ -19,19 +19,19 @@ class DiscordErrorService
     send_error("DESCRIPTION", "DESCRIPTION")
   end
 
-  def send_error(request, params)
+  def send_error(req, params)
     client = Discordrb::Webhooks::Client.new(url: @url_webhook)
     client.execute do |builder|
-      builder.content = 'An error has occurred ! ' + random_smiley
+      builder.content = "An error has occurred ! #{random_smiley}"
       builder.add_embed do |embed|
         embed.title = @error.to_s
-        embed.description = "#{request} : \n \n"
-        embed.description += @request.to_s
+        embed.description = "#{req} : \n \n"
+        embed.description += @req.to_s
         embed.description = "\n \n #{params} : \n \n"
         embed.description += @params.to_s
         embed.description += "\n \n STACK TRACE : \n \n"
         embed.description += @stack_trace.to_s
-        embed.timestamp = Time.now
+        embed.timestamp = Time.zone.now
       end
     end
   end
