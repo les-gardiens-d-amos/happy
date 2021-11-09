@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_05_104801) do
+ActiveRecord::Schema.define(version: 2021_11_09_083728) do
 
   create_table "amos", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "user_id"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 2021_11_05_104801) do
   end
 
   create_table "catches", id: { type: :string, limit: 36 }, force: :cascade do |t|
-    t.decimal "long", precision: 10, scale: 10
-    t.decimal "lat", precision: 10, scale: 10
-    t.decimal "altitude", precision: 10, scale: 10
-    t.decimal "accuracy", precision: 10, scale: 10
+    t.decimal "long", precision: 11, scale: 7
+    t.decimal "lat", precision: 11, scale: 7
+    t.decimal "altitude", precision: 11, scale: 7
+    t.decimal "accuracy", precision: 11, scale: 7
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "amos_id"
