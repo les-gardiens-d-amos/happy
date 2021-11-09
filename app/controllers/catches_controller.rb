@@ -1,5 +1,6 @@
 class CatchesController < ApplicationController
   before_action :set_catch, only: %i[show update destroy]
+  before_action :check_is_admin, only: %i[show update create amos_catches destroy]
 
   # GET /catches
   def index
