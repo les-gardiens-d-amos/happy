@@ -26,6 +26,9 @@ gem "pry"
 gem 'discordrb-webhooks'
 gem 'discordrb'
 
+# code linter
+gem 'rubocop', '~> 1.22', require: false
+
 group :development, :test do
   gem 'sqlite3', '~> 1.4'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

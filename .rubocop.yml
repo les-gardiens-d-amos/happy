@@ -1,0 +1,11 @@
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+GlobalVars:
+  Enabled: false
