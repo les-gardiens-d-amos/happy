@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   put "/amos/update/name" => "amos#update_name"
 
   resources :users
+  get "users/find/current_users" => "users#current_user"
 
   post "/login" => "users#login"
 end
