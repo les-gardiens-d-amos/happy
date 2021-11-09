@@ -28,6 +28,7 @@ gem 'discordrb'
 
 # code linter
 gem 'rubocop', '~> 1.22', require: false
+gem 'rubocop-rails', require: false
 
 group :development, :test do
   gem 'sqlite3', '~> 1.4'
