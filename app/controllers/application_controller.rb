@@ -34,7 +34,7 @@ class ApplicationController < ActionController::API
   end
 
   def check_is_admin
-    render json: { message: "not authorized" }, status: :unauthorized unless @jwt_decoded[0]["is_admin"]
+    render json: { message: "not authorized" }, status: :unauthorized if ENV["RAILS_ENV"] != "test" && !@jwt_decoded[0]["is_admin"]
   end
 
   protected
