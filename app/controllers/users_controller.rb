@@ -2,6 +2,7 @@ require "bcrypt"
 
 class UsersController < ApplicationController
   skip_before_action :authorized, only: %i[create login]
+  skip_before_action :check_is_admin, only: %i[create login show current_user update destroy]
   before_action :set_user, only: %i[show update destroy]
 
   # GET /users
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
     user = User.find_by(email: user_info["email"])
     password = BCrypt::Password.new(user.password)
     if password == user_info["password"]
-      payload = { user_id: user.id }
+      payload = { user_id: user.id, is_admin: user.is_admin }
       token = JWT.encode(payload, nil, "HS256")
       render json: { "token" => token, "user_info" => user }
     else

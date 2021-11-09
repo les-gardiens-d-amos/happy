@@ -2,6 +2,7 @@ require "pry"
 
 class AmosController < ApplicationController
   before_action :set_amo, only: %i[show update destroy]
+  skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy]
 
   # GET /amos
   def index

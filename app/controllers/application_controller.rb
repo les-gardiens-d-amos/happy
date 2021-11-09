@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   around_action :manage_error
   before_action :authorized
+  before_action :check_is_admin
 
   def auth_header
     request.headers["Authorization"]
@@ -11,7 +12,7 @@ class ApplicationController < ActionController::API
 
     token = auth_header.split(" ")[1]
     begin
-      JWT.decode(token, nil, false)
+      @jwt_decoded = JWT.decode(token, nil, false)
     rescue JWT::DecodeError
       nil
     end
@@ -30,6 +31,10 @@ class ApplicationController < ActionController::API
 
   def authorized
     render json: { message: "Please log in" }, status: :unauthorized if ENV["RAILS_ENV"] != "test" && !logged_in?
+  end
+
+  def check_is_admin
+    render json: { message: "not authorized" }, status: :unauthorized if ENV["RAILS_ENV"] != "test" && !@jwt_decoded[0]["is_admin"]
   end
 
   protected
