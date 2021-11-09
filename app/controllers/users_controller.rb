@@ -46,13 +46,13 @@ class UsersController < ApplicationController
   def login
     user_info = JSON.parse(request.body.read)
     user = User.find_by(email: user_info["email"])
-    password = BCrypt::Password.new(user.password)
+    password = BCrypt::Password.new(user.password) unless user.nil?
     if password == user_info["password"]
       payload = { user_id: user.id, is_admin: user.is_admin }
       token = JWT.encode(payload, nil, "HS256")
       render json: { "token" => token, "user_info" => user }
     else
-      render json: { "error" => "undefined users" }
+      render json: { message: "undefined users" }, status: :unauthorized
     end
   end
 
