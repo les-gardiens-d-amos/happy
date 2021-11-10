@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_09_133459) do
+ActiveRecord::Schema.define(version: 2021_11_10_122202) do
 
   create_table "amos", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "user_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_133459) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.boolean "is_admin", default: false
+    t.datetime "connected_at", default: "2021-11-10 12:25:58"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
