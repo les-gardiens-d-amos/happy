@@ -36,10 +36,12 @@ class UsersController < ApplicationController
     }
     @user = User.new(user)
 
-    if @user.save
+    begin
+      @user.save
       render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
+    rescue StandardError => e
+      render json: { message: "users already exists" }, status: :unprocessable_entity
+      Rails.logger.debug e
     end
   end
 
