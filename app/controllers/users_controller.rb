@@ -60,7 +60,13 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    user_info = JSON.parse(request.body.read)
+    user = {
+      email: user_info["email"],
+      name: user_info["name"],
+      password: BCrypt::Password.create(user_info["password"])
+    }
+    if @user.update(user)
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -77,11 +83,13 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+  rescue StandardError => e
+    render json: { message: "undefined users" }, status: :unprocessable_entity
+    Rails.logger.error e
   end
 
   # Only allow a list of trusted parameters through.
   def user_params
-    # params.require(:user).permit(:name, :password)
-    params.permit(:name, :password)
+    params.permit(:name, :password, :email)
   end
 end
