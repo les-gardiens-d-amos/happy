@@ -50,6 +50,7 @@ class UsersController < ApplicationController
     user = User.find_by(email: user_info["email"])
     password = BCrypt::Password.new(user.password) unless user.nil?
     if password == user_info["password"]
+      User.update_connected_at(user)
       payload = { user_id: user.id, is_admin: user.is_admin }
       token = JWT.encode(payload, nil, "HS256")
       render json: { "token" => token, "user_info" => user }
