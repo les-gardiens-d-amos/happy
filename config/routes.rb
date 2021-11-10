@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :users
   get "users/find/current_users" => "users#current_user"
+  get "users/catches/last_week" => "users#last_week_catches"
 
   post "/login" => "users#login"
 end

@@ -2,8 +2,8 @@ require "bcrypt"
 
 class UsersController < ApplicationController
   skip_before_action :authorized, only: %i[create login]
-  skip_before_action :check_is_admin, only: %i[create login show current_user update destroy]
-  before_action :set_user, only: %i[show update destroy]
+  skip_before_action :check_is_admin, only: %i[last_week_catches create login show current_user update destroy]
+  before_action :set_user, only: %i[show update destroy last_week_catches]
 
   # GET /users
   def index
@@ -23,6 +23,18 @@ class UsersController < ApplicationController
     user = User.find(user_id)
 
     render json: { "token" => token, "user_info" => user }
+  end
+
+  def last_week_catches
+    amos = Amo.where(user_id: @user.id)
+    res = []
+    # dates = [Time.zone.today, Time.zone.today - 1.week]
+
+    amos.each do |el|
+      res << { el.name => Catch.where(amos_id: el.id) }
+    end
+
+    render json: { amo: res }
   end
 
   # POST /users
