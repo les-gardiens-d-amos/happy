@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    @users = User.select(:id, :email, :name, :created_at, :connected_at).all
 
     render json: @users
   end
