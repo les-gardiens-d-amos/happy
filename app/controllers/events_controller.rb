@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  skip_before_action :authorized
+  skip_before_action :check_is_admin
   before_action :set_event, only: [:show, :update, :destroy]
 
   # GET /events
