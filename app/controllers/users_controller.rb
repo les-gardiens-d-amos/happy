@@ -1,9 +1,9 @@
 require "bcrypt"
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: %i[create login]
-  skip_before_action :check_is_admin, only: %i[last_week_catches create login show current_user update destroy]
-  before_action :set_user, only: %i[show update destroy last_week_catches]
+  skip_before_action :authorized, only: %i[create login update_name update_email]
+  skip_before_action :check_is_admin, only: %i[last_week_catches create login show current_user update destroy update_name update_email]
+  before_action :set_user, only: %i[show update destroy last_week_catches update_name update_email]
 
   # GET /users
   def index
@@ -83,6 +83,28 @@ class UsersController < ApplicationController
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update_name
+    name = JSON.parse(request.body.read)["name"]
+    @user.name = name
+
+    if @user.save
+      render json: @user
+    else
+      render json: { message: "name not saved" }, status: :unprocessable_entity
+    end
+  end
+
+  def update_email
+    email = JSON.parse(request.body.read)["email"]
+    @user.email = email
+
+    if @user.save
+      render json: @user
+    else
+      render json: { message: "email not saved" }, status: :unprocessable_entity
     end
   end
 
