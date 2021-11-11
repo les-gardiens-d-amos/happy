@@ -29,7 +29,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should destroy event" do
-    assert_difference('Event.count', -1) do
+    assert_difference("Event.count", -1) do
       delete event_url(@event), as: :json
     end
 
