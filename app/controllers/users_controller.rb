@@ -1,9 +1,11 @@
 require "bcrypt"
 
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: %i[create login update_name update_email]
-  skip_before_action :check_is_admin, only: %i[last_week_catches create login show current_user update destroy update_name update_email]
-  before_action :set_user, only: %i[show update destroy last_week_catches update_name update_email]
+  skip_before_action :authorized, only: %i[create login]
+  skip_before_action :check_is_admin,
+                     only: %i[last_week_catches create login show current_user update destroy update_name update_email update_password]
+  before_action :set_user,
+                only: %i[show update destroy last_week_catches update_name update_email update_password]
 
   # GET /users
   def index
@@ -105,6 +107,22 @@ class UsersController < ApplicationController
       render json: @user
     else
       render json: { message: "email not saved" }, status: :unprocessable_entity
+    end
+  end
+
+  def update_password
+    user_password = JSON.parse(request.body.read)
+    password = BCrypt::Password.new(@user.password)
+
+    if password == user_password["last_password"]
+      @user.password = BCrypt::Password.create(user_password["password"])
+      if @user.save
+        render json: @user
+      else
+        render json: { message: "new password not save" }, status: :unprocessable_entity
+      end
+    else
+      render json: { message: "undefined password" }, status: :unprocessable_entity
     end
   end
 
