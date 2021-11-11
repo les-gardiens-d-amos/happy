@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get "users/catches/last_week" => "users#last_week_catches"
   put "users/update/name" => "users#update_name"
   put "users/update/email" => "users#update_email"
-  # put "users/update/password"
+  put "users/update/password" => "users#update_password"
 
   post "/login" => "users#login"
 end
