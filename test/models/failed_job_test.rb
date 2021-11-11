@@ -10,7 +10,7 @@ class FailedJobTest < ActiveSupport::TestCase
     }
   end
 
-  test "should not save Job witouth data" do
+  test "should not save Job withouh data" do
     failed_job = FailedJob.new
     assert_not failed_job.save, "Dont save Job without data"
   end
