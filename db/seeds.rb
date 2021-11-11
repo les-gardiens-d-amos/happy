@@ -59,3 +59,17 @@ Catch.create({
                altitude: 3,
                accuracy: 4
              })
+
+FailedJob.create({
+                   name: "error for seed",
+                   description: "description",
+                   error: "error for seed",
+                   stack_trace: "./error/path"
+                 })
+
+FailedJob.create({
+                   name: "error for seed 2",
+                   description: "description",
+                   error: "error for seed 2",
+                   stack_trace: "./error/path"
+                 })
