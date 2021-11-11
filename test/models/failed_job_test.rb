@@ -8,6 +8,8 @@ class FailedJobTest < ActiveSupport::TestCase
       error: "divided by zero for example",
       stack_trace: "./error/stack/trace/example.rb"
     }
+
+    @jobs = FailedJob.new(@data).save
   end
 
   test "should not save Job withouh data" do
@@ -21,13 +23,11 @@ class FailedJobTest < ActiveSupport::TestCase
   end
 
   test "find error by name" do
-    FailedJob.new(@data).save
     job = FailedJob.find_by(name: "error for test")
     assert_not_equal(nil, job, "Return error with a name")
   end
 
   test "delete all failed job" do
-    FailedJob.new(@data).save
     FailedJob.delete_all
     all_job = FailedJob.all
     assert_equal([], all_job, "Return empty array after delete all")

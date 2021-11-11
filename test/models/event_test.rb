@@ -6,6 +6,8 @@ class EventTest < ActiveSupport::TestCase
       title: "one title for test",
       date: "01/01/2021"
     }
+
+    @event = Event.new(@data).save
   end
 
   test "not save event without data" do
@@ -19,19 +21,16 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test "find all event" do
-    Event.new(@data).save
     events = Event.all
     assert_not_equal([], events, "Return all event")
   end
 
   test "find event by title" do
-    Event.new(@data).save
     event = Event.find_by(title: "one title for test")
     assert_not_equal(nil, event, "return event with a title")
   end
 
   test "delete all event" do
-    Event.new(@data).save
     Event.delete_all
     events = Event.all
     assert_equal([], events, "Retuenr empty array after delete all")
