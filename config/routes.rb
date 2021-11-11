@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :events
   resources :failed_jobs
   resources :catches
   get "/catches/find/amos" => "catches#amos_catches"

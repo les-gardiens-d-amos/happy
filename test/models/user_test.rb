@@ -8,6 +8,15 @@ class UserTest < ActiveSupport::TestCase
       name: "plop",
       password: "plop-man"
     }
+
+    user_data = {
+      id: SecureRandom.uuid,
+      email: "plopi@gmail.com",
+      name: "plopi",
+      password: "plopiplopi"
+    }
+
+    @user = User.new(user_data).save
   end
 
   test "should not save User withouth name" do
@@ -21,19 +30,16 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "Find user by name" do
-    User.new(@data).save
-    user = User.find_by(name: "plop")
+    user = User.find_by(name: "plopi")
     assert_not_equal(nil, user, "Return user with a name plop")
   end
 
   test "Find user by email" do
-    User.new(@data).save
-    user = User.find_by(email: "plop@plop.com")
+    user = User.find_by(email: "plopi@gmail.com")
     assert_not_equal(nil, user, "Return user with a email plop@plop.com")
   end
 
   test "Delete all user" do
-    User.new(@data).save
     User.delete_all
     all_user = User.all
     assert_equal([], all_user, "Return empty array")
