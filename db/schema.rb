@@ -34,11 +34,6 @@ ActiveRecord::Schema.define(version: 2021_11_10_122202) do
     t.string "amos_id"
   end
 
-  create_table "check_services", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "failed_jobs", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -55,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_122202) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.boolean "is_admin", default: false
-    t.datetime "connected_at", default: "2021-11-10 12:25:58"
+    t.datetime "connected_at", default: "2021-11-10 22:25:50"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

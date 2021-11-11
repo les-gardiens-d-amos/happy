@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
     begin
       @user.save
-      render json: @user, status: :created, location: @user
+      login
     rescue StandardError => e
       render json: { message: "users already exists" }, status: :unprocessable_entity
       Rails.logger.debug e
