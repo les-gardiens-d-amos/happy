@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   get "users/catches/last_week" => "users#last_week_catches"
 
   post "/login" => "users#login"
+
+  get "/check/service" => "check_service#check_service"
 end
