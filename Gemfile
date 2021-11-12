@@ -26,7 +26,7 @@ gem "pry"
 gem "discordrb"
 gem "discordrb-webhooks"
 # mail validator
-gem 'email_validator'
+gem "email_validator"
 
 # code linter
 gem "rubocop", "~> 1.22", require: false
