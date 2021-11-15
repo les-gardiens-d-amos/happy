@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     user_info = JSON.parse(request.body.read)
     user = {
       id: SecureRandom.uuid,
-      email: user_info["email"],
+      email: user_info["email"].strip,
       name: user_info["name"],
       password: BCrypt::Password.create(user_info["password"])
     }
