@@ -60,7 +60,11 @@ class AmosController < ApplicationController
 
   # DELETE /amos/1
   def destroy
-    Catch.remove_catch_with_amo(params[:id])
+    begin
+      Catch.remove_catch_with_amo(params[:id])
+    rescue StandardError => e
+      Rails.logger.debug e
+    end
     @amo.destroy
   end
 
