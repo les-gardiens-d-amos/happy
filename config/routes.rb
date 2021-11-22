@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/amos/find/user" => "amos#user_amos"
   get "/amos/find/animal_id" => "amos#animal_id"
   put "/amos/update/name" => "amos#update_name"
+  get "/amos/without/location" => "amos#amos_without_location"
 
   resources :users
   get "users/find/current_users" => "users#current_user"

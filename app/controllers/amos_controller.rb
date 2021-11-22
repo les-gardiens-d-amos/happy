@@ -2,7 +2,8 @@ require "pry"
 
 class AmosController < ApplicationController
   before_action :set_amo, only: %i[show update destroy]
-  skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy]
+  skip_before_action :authorized, only: %i[amos_without_location]
+  skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy amos_without_location]
 
   # GET /amos
   def index
@@ -27,6 +28,12 @@ class AmosController < ApplicationController
     @animal_id = Amo.find_animal_id_by_user(amo_params[:user_id])
 
     render json: { animal_id: @animal_id }
+  end
+
+  def amos_without_location
+    id_amos = Amo.find_amos_without_location
+
+    render json: id_amos
   end
 
   # POST /amos

@@ -17,4 +17,8 @@ class Amo < ApplicationRecord
   def self.find_animal_id_by_user(id)
     Amo.where(user_id: id).pluck(:animal_id).uniq
   end
+
+  def self.find_amos_without_location
+    Amo.where(location: nil).pluck(:id)
+  end
 end
