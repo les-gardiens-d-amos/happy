@@ -14,6 +14,13 @@ class Amo < ApplicationRecord
     amo
   end
 
+  def self.change_amo_location(id, location)
+    amo = Amo.find(id)
+    amo.location = location
+    amo.save
+    amo
+  end
+
   def self.find_animal_id_by_user(id)
     Amo.where(user_id: id).pluck(:animal_id).uniq
   end
