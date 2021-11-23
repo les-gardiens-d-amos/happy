@@ -25,6 +25,8 @@ gem "pry"
 # dirscord bot
 gem "discordrb"
 gem "discordrb-webhooks"
+# cloudinary
+gem 'cloudinary'
 
 # code linter
 gem "rubocop", "~> 1.22", require: false
