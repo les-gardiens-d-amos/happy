@@ -13,7 +13,20 @@ class UploadImageController < ApplicationController
       res = Cloudinary::Uploader.upload(base64)
       render json: { message: res }
     rescue Exception => e
-      puts e.full_message
+      puts e
+      render json: { error: e }
+    end
+  end
+
+  def delete_image
+    Cloudinary.config_from_url ENV["CLOUDINAY_URL"]
+    image_id = params["image_id"]
+
+    begin
+      res = Cloudinary::Uploader.destroy(image_id)
+      render json: { message: res }
+    rescue Exception => e
+      puts e
       render json: { error: e }
     end
   end

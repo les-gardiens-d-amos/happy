@@ -20,4 +20,5 @@ Rails.application.routes.draw do
 
   # for test =>
   post "/upload/image" => "upload_image#upload_image"
+  delete "/delete/image" => "upload_image#delete_image"
 end
