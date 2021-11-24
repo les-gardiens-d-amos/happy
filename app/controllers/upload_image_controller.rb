@@ -1,5 +1,6 @@
 require "cloudinary"
 require "json"
+require "pry"
 
 class UploadImageController < ApplicationController
   skip_before_action :authorized
@@ -11,7 +12,7 @@ class UploadImageController < ApplicationController
 
     begin
       res = Cloudinary::Uploader.upload(base64)
-      render json: { message: res }
+      render json: res
     rescue StandardError => e
       Rails.logger.debug e
       render json: { error: e }
