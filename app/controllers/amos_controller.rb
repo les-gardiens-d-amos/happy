@@ -6,6 +6,8 @@ class AmosController < ApplicationController
   before_action :set_amo, only: %i[show update destroy]
   before_action :set_cloudinary, only: %i[create destroy]
   skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy]
+  skip_before_action :authorized, only: %i[amos_without_location update_location]
+  skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy amos_without_location update_location]
 
   # GET /amos
   def index
@@ -30,6 +32,12 @@ class AmosController < ApplicationController
     @animal_id = Amo.find_animal_id_by_user(amo_params[:user_id])
 
     render json: { animal_id: @animal_id }
+  end
+
+  def amos_without_location
+    id_amos = Amo.find_amos_without_location
+
+    render json: id_amos
   end
 
   # POST /amos
@@ -61,6 +69,12 @@ class AmosController < ApplicationController
   def update_name
     name = JSON.parse(request.body.read)["name"]
     @amo = Amo.change_amos_name(amo_params[:id], name)
+    render json: @amo
+  end
+
+  def update_location
+    location = JSON.parse(request.body.read)["location"]
+    @amo = Amo.change_amo_location(amo_params[:id], location)
     render json: @amo
   end
 

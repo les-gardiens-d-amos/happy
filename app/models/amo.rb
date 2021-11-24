@@ -6,6 +6,7 @@ class Amo < ApplicationRecord
   validates :name, presence: true
   validates :image_path, presence: true
   validates :image_id, presence: true
+  validates :location, presence: true
 
   def self.change_amos_name(id, name)
     amo = Amo.find(id)
@@ -14,7 +15,18 @@ class Amo < ApplicationRecord
     amo
   end
 
+  def self.change_amo_location(id, location)
+    amo = Amo.find(id)
+    amo.location = location
+    amo.save
+    amo
+  end
+
   def self.find_animal_id_by_user(id)
     Amo.where(user_id: id).pluck(:animal_id).uniq
+  end
+
+  def self.find_amos_without_location
+    Amo.where(location: nil).pluck(:id)
   end
 end

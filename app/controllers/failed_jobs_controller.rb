@@ -1,5 +1,6 @@
 class FailedJobsController < ApplicationController
   skip_before_action :authorized
+  skip_before_action :check_is_admin
   before_action :set_failed_job, only: %i[show update destroy]
 
   # GET /failed_jobs
