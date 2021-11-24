@@ -106,6 +106,6 @@ class AmosController < ApplicationController
   end
 
   def remove_amos_image(image_id)
-    Cloudinary::Uploader.destroy(image_id)
+    Cloudinary::Uploader.destroy(image_id) unless image_id.nil?
   end
 end
