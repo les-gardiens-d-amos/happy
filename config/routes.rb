@@ -19,4 +19,8 @@ Rails.application.routes.draw do
   put "users/update/password" => "users#update_password"
 
   post "/login" => "users#login"
+
+  # for test =>
+  post "/upload/image" => "upload_image#upload_image"
+  delete "/delete/image" => "upload_image#delete_image"
 end

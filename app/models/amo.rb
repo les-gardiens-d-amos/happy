@@ -5,6 +5,7 @@ class Amo < ApplicationRecord
   validates :amos_type, presence: true
   validates :name, presence: true
   validates :image_path, presence: true
+  validates :image_id, presence: true
   validates :location, presence: true
 
   def self.change_amos_name(id, name)

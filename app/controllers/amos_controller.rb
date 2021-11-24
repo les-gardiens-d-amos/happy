@@ -1,7 +1,10 @@
 require "pry"
+require "cloudinary"
+require "json"
 
 class AmosController < ApplicationController
   before_action :set_amo, only: %i[show update destroy]
+  before_action :set_cloudinary, only: %i[create destroy]
   skip_before_action :authorized, only: %i[amos_without_location update_location]
   skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy amos_without_location update_location]
 
@@ -39,8 +42,12 @@ class AmosController < ApplicationController
   # POST /amos
   def create
     amo_info = JSON.parse(request.body.read)
+    image_id_and_path = upload_amos_image(amo_info["base64"])
+    amo_info.delete("base64")
     @amo = Amo.new(amo_info)
     @amo.id = SecureRandom.uuid
+    @amo.image_path = image_id_and_path[:image_path]
+    @amo.image_id = image_id_and_path[:image_id]
 
     if @amo.save
       render json: @amo, status: :created, location: @amo
@@ -72,11 +79,7 @@ class AmosController < ApplicationController
 
   # DELETE /amos/1
   def destroy
-    begin
-      Catch.remove_catch_with_amo(params[:id])
-    rescue StandardError => e
-      Rails.logger.debug e
-    end
+    remove_amos_image(@amo.image_id)
     @amo.destroy
   end
 
@@ -89,6 +92,20 @@ class AmosController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def amo_params
-    params.permit(:id, :user_id, :animal_id, :species, :amos_type, :name, :image_path)
+    params.permit(:id, :user_id, :animal_id, :species, :amos_type, :name)
+  end
+
+  # cloudinary method =>
+  def set_cloudinary
+    Cloudinary.config_from_url ENV["CLOUDINARY_URL"]
+  end
+
+  def upload_amos_image(base64)
+    res = Cloudinary::Uploader.upload(base64)
+    { image_id: res["public_id"], image_path: res["secure_url"] }
+  end
+
+  def remove_amos_image(image_id)
+    Cloudinary::Uploader.destroy(image_id)
   end
 end
