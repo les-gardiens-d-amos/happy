@@ -2,6 +2,7 @@ require "cloudinary"
 require "json"
 require "pry"
 
+# temporally controller for test
 class UploadImageController < ApplicationController
   skip_before_action :authorized
   skip_before_action :check_is_admin

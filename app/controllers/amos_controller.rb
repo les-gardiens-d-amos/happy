@@ -4,7 +4,7 @@ require "json"
 
 class AmosController < ApplicationController
   before_action :set_amo, only: %i[show update destroy]
-  before_action :set_cloudinary, only: %i[create]
+  before_action :set_cloudinary, only: %i[create destroy]
   skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy]
 
   # GET /amos
@@ -66,11 +66,7 @@ class AmosController < ApplicationController
 
   # DELETE /amos/1
   def destroy
-    begin
-      Catch.remove_catch_with_amo(params[:id])
-    rescue StandardError => e
-      Rails.logger.debug e
-    end
+    remove_amos_image(@amo.image_id)
     @amo.destroy
   end
 
@@ -94,5 +90,9 @@ class AmosController < ApplicationController
   def upload_amos_image(base64)
     res = Cloudinary::Uploader.upload(base64)
     { image_id: res["public_id"], image_path: res["secure_url"] }
+  end
+
+  def remove_amos_image(image_id)
+    Cloudinary::Uploader.destroy(image_id)
   end
 end
