@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   post "/login" => "users#login"
 
+  get "/leaderboard" => "leaderboard#leaderboard"
+  get "/leaderboard/stats" => "leaderboard#global_stats"
+
   # for test =>
   post "/upload/image" => "upload_image#upload_image"
   delete "/delete/image" => "upload_image#delete_image"
