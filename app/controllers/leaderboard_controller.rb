@@ -11,8 +11,8 @@ class LeaderboardController < ApplicationController
       @leaderboard << count_user_amos(el.name, amos) unless amos.size.zero?
     end
 
+    @leaderboard = @leaderboard.sort_by { |leader| leader[:score] }.reverse
     compute_position
-    @leaderboard = @leaderboard.sort_by { |leader| leader[:position] }
 
     render json: { leaderboard: @leaderboard }
   end
