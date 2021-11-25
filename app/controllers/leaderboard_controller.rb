@@ -11,6 +11,8 @@ class LeaderboardController < ApplicationController
       @leaderboard << count_user_amos(el.name, amos) unless amos.size.zero?
     end
 
+    @leaderboard = @leaderboard.sort_by { |leader| leader[:score] }.reverse
+
     render json: { leaderboard: @leaderboard }
   end
 
@@ -21,11 +23,15 @@ class LeaderboardController < ApplicationController
   private
 
   def count_user_amos(user_name, amos)
+    amos_count = amos.count
+    amos_type_count = amos.pluck(:animal_id).uniq.count
+    amos_type_level = amos.pluck(:level).sum
     {
       name: user_name,
-      amos_count: amos.count,
-      amos_type_count: amos.pluck(:animal_id).uniq.count,
-      total_amos_level: amos.pluck(:level).sum,
+      score: amos_count + amos_type_count + amos_type_level,
+      amos_count: amos_count,
+      amos_type_count: amos_type_count,
+      total_amos_level: amos_type_level,
       amos_type_prefer: find_most_amos(amos),
       last_catch: find_last_catch(amos.last)
     }
