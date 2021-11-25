@@ -33,7 +33,7 @@ class LeaderboardController < ApplicationController
       amos_type_count: amos_type_count,
       total_amos_level: amos_type_level,
       amos_type_prefer: find_most_amos(amos),
-      last_catch: find_last_catch(amos.last),
+      last_catch: find_last_catch(amos.last)
     }
   end
 
