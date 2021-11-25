@@ -11,7 +11,8 @@ class LeaderboardController < ApplicationController
       @leaderboard << count_user_amos(el.name, amos) unless amos.size.zero?
     end
 
-    @leaderboard = @leaderboard.sort_by { |leader| leader[:score] }.reverse
+    compute_position
+    @leaderboard = @leaderboard.sort_by { |leader| leader[:position] }
 
     render json: { leaderboard: @leaderboard }
   end
@@ -44,5 +45,13 @@ class LeaderboardController < ApplicationController
 
   def find_last_catch(amo)
     !amo.nil? ? amo.created_at : nil
+  end
+
+  def compute_position
+    index = 1
+    @leaderboard.each do |el|
+      el["position"] = index
+      index += 1
+    end
   end
 end
