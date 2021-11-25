@@ -15,15 +15,12 @@ class LeaderboardController < ApplicationController
   end
 
   def global_stats
-    render json: { message: "stats" } 
+    render json: { message: "stats" }
   end
-
 
   private
 
   def count_user_amos(user_name, amos)
-    
-    puts amos.length
     {
       name: user_name,
       amos_count: amos.count,
