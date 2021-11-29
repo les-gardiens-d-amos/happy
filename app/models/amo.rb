@@ -29,4 +29,22 @@ class Amo < ApplicationRecord
   def self.find_amos_without_location
     Amo.where(location: nil).pluck(:id)
   end
+
+  def self.compute_global_stats
+    amos = Amo.all
+    amos_types = []
+    amos_species = []
+    amos_location = []
+
+    amos.each do |amo|
+      amos_types << amo.amos_type.downcase
+      amos_species << amo.species.downcase
+      amos_location << amo.location
+    end
+
+    amos_types = amos_types.tally
+    amos_species = amos_species.tally
+    
+    { amos_types: amos_types, amos_species: amos_species, amos_location: amos_location }
+  end
 end
