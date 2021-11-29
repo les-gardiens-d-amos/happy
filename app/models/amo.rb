@@ -29,4 +29,32 @@ class Amo < ApplicationRecord
   def self.find_amos_without_location
     Amo.where(location: nil).pluck(:id)
   end
+
+  def self.compute_global_stats
+    amos = Amo.all
+    amos_types = []
+    amos_species = []
+    amos_location = []
+
+    amos.each do |amo|
+      amos_types << amo.amos_type.downcase
+      amos_species << amo.species.downcase
+      amos_location << amo.location
+    end
+
+    amos_types = amos_types.tally
+    amos_species = amos_species.tally
+
+    { amos_types: amos_types, amos_species: amos_species, amos_location: amos_location, last_week_amos: count_last_week_amos }
+  end
+
+  def self.count_last_week_amos
+    index = 0
+    last_week_amos = []
+    while index < 8
+      last_week_amos << { index.day.ago.utc.to_s => Amo.where(created_at: (index + 1).day.ago.utc..index.day.ago.utc).count }
+      index += 1
+    end
+    last_week_amos.reverse
+  end
 end

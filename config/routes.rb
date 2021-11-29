@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   put "/amos/update/location" => "amos#update_location"
   get "/amos/without/location" => "amos#amos_without_location"
 
+  get "/amos/global/stats" => "amos#global_stats"
+
   resources :users
   get "users/find/current_users" => "users#current_user"
   get "users/catches/last_week" => "users#last_week_catches"
