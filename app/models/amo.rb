@@ -47,8 +47,8 @@ class Amo < ApplicationRecord
       amos_species: amos_species.tally,
       amos_location: amos_location,
       last_week_amos: count_last_week_amos,
-      last_week_new_users: User.count_last_week_users("created_at"),
-      last_week_users_connected: User.count_last_week_users("connected_at")
+      last_week_new_users: User.count_users,
+      last_week_users_connected: User.count_last_week_users
     }
   end
 
