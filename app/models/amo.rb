@@ -44,11 +44,11 @@ class Amo < ApplicationRecord
 
     amos_types = amos_types.tally
     amos_species = amos_species.tally
-    
+
     { amos_types: amos_types, amos_species: amos_species, amos_location: amos_location, last_week_amos: count_last_week_amos }
   end
 
-  def self.count_last_week_amos()
+  def self.count_last_week_amos
     index = 0
     last_week_amos = []
     while index < 8

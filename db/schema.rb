@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_121059) do
+ActiveRecord::Schema.define(version: 2021_11_28_130441) do
 
   create_table "amos", id: { type: :string, limit: 36 }, force: :cascade do |t|
     t.string "user_id"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 2021_11_24_121059) do
     t.string "image_path"
     t.string "location"
     t.string "image_id"
+  end
+
+  create_table "amos_deletes", force: :cascade do |t|
+    t.integer "animal_id"
+    t.string "species"
+    t.string "amos_type"
+    t.string "name"
+    t.integer "level"
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "catches", id: { type: :string, limit: 36 }, force: :cascade do |t|

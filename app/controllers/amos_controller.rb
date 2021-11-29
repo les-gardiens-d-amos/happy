@@ -6,7 +6,8 @@ class AmosController < ApplicationController
   before_action :set_amo, only: %i[show update destroy]
   before_action :set_cloudinary, only: %i[create destroy]
   skip_before_action :authorized, only: %i[amos_without_location update_location global_stats]
-  skip_before_action :check_is_admin, only: %i[create show user_amos animal_id update update_name destroy amos_without_location update_location global_stats]
+  skip_before_action :check_is_admin,
+                     only: %i[create show user_amos animal_id update update_name destroy amos_without_location update_location global_stats]
 
   # GET /amos
   def index
