@@ -87,7 +87,8 @@ class AmosController < ApplicationController
   # DELETE /amos/1
   def destroy
     remove_amos_image(@amo.image_id)
-    @amo.destroy
+    # TODO: save amos deleted
+    # @amo.destroy
   end
 
   private
