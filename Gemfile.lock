@@ -113,10 +113,9 @@ GEM
     mysql2 (0.5.3)
     netrc (0.11.0)
     nio4r (2.5.8)
+    nokogiri (1.13.2-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.12.5-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.12.5-x86_64-linux)
+    nokogiri (1.13.2-x86_64-linux)
       racc (~> 1.4)
     opus-ruby (1.0.1)
       ffi
